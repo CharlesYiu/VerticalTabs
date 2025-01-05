@@ -1,0 +1,29 @@
+{
+  "name": "Tabs",
+  "description": "Vertical Tabs for Chrome",
+  "author": "Charles Yiu",
+  "homepage_url": "https://github/charlesyiu/verticaltabs",
+  "version": "1.0",
+  "manifest_version": 3,
+  "icons": {
+    "16": "assets/logo/16.png",
+    "32": "assets/logo/32.png",
+    "48": "assets/logo/48.png",
+    "128": "assets/logo/128.png"
+  },
+  "action": {
+    "default_title": "Toggle Vertical Tabs"
+  },
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "tabGroups",
+    "favicon"
+  ],
+  "side_panel": {
+    "default_path": "tabs.html"
+  },
+  "background": {
+    "service_worker": "service_worker.js"
+  }
+}
