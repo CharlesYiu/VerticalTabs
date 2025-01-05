@@ -188,4 +188,5 @@ window.addEventListener("click", _ => {
 })
 document.getElementById('menu').addEventListener('click', event => {
     menubar.classList.toggle("hide")
+    event.stopPropagation()
 })
