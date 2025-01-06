@@ -204,9 +204,9 @@ async function addTabElement(tab) {
     tabCloseButton.innerHTML = `<img src="assets/close.png" draggable="false">`
     tabElement.appendChild(tabCloseButton)
 
-    const loaderElement = document.createElement("div")
-    loaderElement.className = "loader"
-    tabElement.appendChild(loaderElement)
+    const indicatorElement = document.createElement("div")
+    indicatorElement.className = "indicator"
+    tabElement.appendChild(indicatorElement)
 
     const tabFaviconElement = document.createElement("img")
     if (typeof tab.favIconUrl == "string" && tab.favIconUrl !== "") tabFaviconElement.src = tab.favIconUrl

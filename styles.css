@@ -1,6 +1,6 @@
 * {
     font-family: Cantarell;
-    /*user-select: none;*/
+    user-select: none;
 }
 :root {
     --shade-0: #ffffff;
@@ -8,7 +8,7 @@
     --shade-2: #dddddd;
     --shade-3: #b3b3b3;
     --shade-4: #919191;
-    --loading-color: #1b6eda;
+    --loading-color: #2669db;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -41,9 +41,8 @@ body {
 #tabs {
     display: flex;
     flex-flow: column;
-    /*background: linear-gradient(90deg, var(--shade-0) 0 18px, var(--shade-2) 18px calc(100% - 18px), var(--shade-0) calc(100% - 18px) 100%);*/
     border-radius: 8px;
-    margin: 10px;
+    margin: 12px 10px 10px 10px;
     height: calc(100vh - 68px);
     overflow-y: scroll;
 }
@@ -74,14 +73,15 @@ body {
     transition: opacity 100ms;
 }
 .tab > img {
-    height: 18px;
-    width: 18px;
     border-radius: 9px;
-    background-image: url("assets/globe.png");
-    background-size: 18px;
+    background-image: url("assets/chrome.png");
+    background-repeat: no-repeat;
+    background-size: contain;
     position: relative;
     right: 34px;
     user-select: contain;
+    height: 18px;
+    width: 18px;
 }
 .tab > img[src] {
     background-image: none;
@@ -141,6 +141,7 @@ body {
     opacity: 1;
     pointer-events: all;
     transition: opacity 100ms;
+    z-index: 999;
 }
 #menubar.hide {
     opacity: 0;
@@ -208,7 +209,7 @@ footer > button > img {
 }
 
 /* HTML: <div class="loader"></div> */
-.tab > .loader {
+.tab > .indicator {
     position: relative;
     right: 16.5px;
     width: 12px;
@@ -218,19 +219,24 @@ footer > button > img {
     animation: none;
     opacity: 0;
 }
-.tab.loading > .loader {
+.tab.loading > .indicator {
     opacity: 1;
     animation:
             l20-1 0.8s infinite linear alternate,
             l20-2 1.6s infinite linear;
 }
-.tab.loading > img {
+.tab.unloaded > .indicator {
+    opacity: 1;
+    border-color: var(--shade-4);
+    border-style: dotted;
+}
+.tab.loading > img, .tab.unloaded > img {
     height: 10px;
     width: 10px;
     background-size: 10px;
     right: 30px;
 }
-.tab.loading > p {
+.tab.loading > p, .tab.unloaded > p {
     right: 27px;
 }
 @keyframes l20-1{
@@ -247,8 +253,4 @@ footer > button > img {
     49.99%{transform:scaleY(1)  rotate(135deg)}
     50%   {transform:scaleY(-1) rotate(0deg)}
     100%  {transform:scaleY(-1) rotate(-135deg)}
-}
-
-.tab.unloaded > {
-    opacity: 0.5;
 }
