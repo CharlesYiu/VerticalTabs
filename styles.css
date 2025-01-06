@@ -1,6 +1,6 @@
 * {
     font-family: Cantarell;
-    user-select: none;
+    /*user-select: none;*/
 }
 :root {
     --shade-0: #ffffff;
@@ -33,18 +33,30 @@
 body {
     background-color: var(--shade-0);
     margin: 0;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 
 #tabs {
     display: flex;
     flex-flow: column;
-    background: linear-gradient(90deg, var(--shade-0) 0 18px, var(--shade-2) 18px calc(100% - 18px), var(--shade-0) calc(100% - 18px) 100%);
+    /*background: linear-gradient(90deg, var(--shade-0) 0 18px, var(--shade-2) 18px calc(100% - 18px), var(--shade-0) calc(100% - 18px) 100%);*/
     border-radius: 8px;
     margin: 10px;
-    max-height: calc(100vh - 68px);
+    height: calc(100vh - 68px);
     overflow-y: scroll;
+}
+
+.tab-container {
+    display:inline-block;
+    border-image: linear-gradient(90deg, var(--shade-0) 0 18px, var(--shade-2) 18px calc(100% - 18px), var(--shade-0) calc(100% - 18px) 100%) 1;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+}
+.tab-container:last-child {
+    height: 100%;
+    border: none;
 }
 .tab {
     display: flex;
@@ -53,13 +65,13 @@ body {
     border-radius: 8px;
     transition: background-color 200ms;
     padding: 8px 8px 8px 8px;
-    margin-bottom: 1px;
-}
-.tab:last-child {
-    margin-bottom: 0;
 }
 .tab:hover, .tab.active {
     background-color: var(--shade-1);
+}
+.tab.dragging {
+    opacity: 0.2;
+    transition: opacity 100ms;
 }
 .tab > img {
     height: 18px;
@@ -69,6 +81,7 @@ body {
     background-size: 18px;
     position: relative;
     right: 34px;
+    user-select: contain;
 }
 .tab > img[src] {
     background-image: none;
