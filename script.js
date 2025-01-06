@@ -31,14 +31,14 @@ async function removeFromMainTabGroup(tabIds) {
         await chrome.tabs.ungroup(tabIds)
     } catch { }
 }
-async function ensureMainTabGroup(){
+async function ensureMainTabGroup(activeTabId = null){
     let createdNewGroup = false
 
     async function createMainTabGroup() {
         mainTabGroupId = await chrome.tabs.group({
             tabIds: (await getAllTabs()).map(tab => tab.id)
         })
-        await activateTab(activatedTab.id)
+        await activateTab(activeTabId == null ? activatedTab.id : activeTabId)
 
         createdNewGroup = true
 
@@ -81,7 +81,8 @@ chrome.tabs.onActivated.addListener(activeInfo => {
     chrome.windows.getCurrent({ })
         .then(async function(currentWindow) {
             if (currentWindow.id !== activeInfo.windowId) return
-            if (await ensureMainTabGroup()) return
+
+            await ensureMainTabGroup(activeInfo.tabId)
             const previousTabElement = await ensureTabElement(activatedTab.id)
             const tabElement = await ensureTabElement(activeInfo.tabId)
 
@@ -169,7 +170,7 @@ async function activateTab(tabId) {
 async function removeTab(tabId) {
     await ensureMainTabGroup()
     await chrome.tabs.remove(tabId)
-    activatedTab = {
+    if (activatedTab.id === tabId) activatedTab = {
         id: null,
         index: null
     }
